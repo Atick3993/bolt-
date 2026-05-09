@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry MCQ - 2nd CT</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e2f;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #2a2a40;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #00d2ff;
+            border-bottom: 2px solid #3a3a5c;
+            padding-bottom: 10px;
+        }
+        .question-block {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #32324e;
+            border-radius: 8px;
+        }
+        .question-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .option-btn {
+            background-color: #3f3f5a;
+            color: white;
+            border: 2px solid transparent;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1em;
+            transition: 0.2s;
+        }
+        .option-btn:hover {
+            background-color: #4e4e73;
+        }
+        .option-btn.selected {
+            border-color: #00d2ff;
+            background-color: #4e4e73;
+        }
+        .option-btn.correct {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .option-btn.wrong {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+        #submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            background-color: #00d2ff;
+            color: #1e1e2f;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #submit-btn:hover {
+            background-color: #00b8e6;
+        }
+        #result {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Chemistry Mega Quiz: 2nd CT</h1>
+    <div id="quiz-container"></div>
+    <button id="submit-btn" onclick="submitQuiz()">উত্তর জমা দিন</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    const quizData = [
+        { q: "১. নিচের কোন d-ব্লক মৌলটি অবস্থান্তর মৌল নয়?", options: ["Fe", "Cu", "Zn", "Ni"], ans: 2 },
+        { q: "২. অক্সিজেনের চেয়ে নাইট্রোজেনের প্রথম আয়নিকরণ শক্তি বেশি হওয়ার কারণ কী?", options: ["আকার ছোট", "অর্ধপূর্ণ p-অরবিটাল", "পূর্ণ s-অরবিটাল", "তড়িৎঋণাত্মকতা বেশি"], ans: 1 },
+        { q: "৩. নিচের কোন হ্যালোজেনের ইলেকট্রন আসক্তি সবচেয়ে বেশি?", options: ["F", "Cl", "Br", "I"], ans: 1 },
+        { q: "৪. VSEPR তত্ত্ব অনুযায়ী ইলেকট্রন জোড়ের বিকর্ষণের সঠিক ক্রম কোনটি?", options: ["lp-lp > lp-bp > bp-bp", "lp-bp > lp-lp > bp-bp", "bp-bp > lp-bp > lp-lp", "lp-lp > bp-bp > lp-bp"], ans: 0 },
+        { q: "৫. CH₄ অণুর জ্যামিতিক আকৃতি কেমন?", options: ["সমতলীয় ত্রিভুজাকার", "সরলরৈখিক", "চতুস্তলকীয়", "পিরামিডীয়"], ans: 2 },
+        { q: "৬. NH₃ অণুতে H-N-H বন্ধন কোণ কত?", options: ["109.5°", "107°", "104.5°", "120°"], ans: 1 },
+        { q: "৭. পানির (H₂O) অণুতে কেন্দ্রীয় পরমাণুতে কয়টি মুক্তজোড় (lp) ইলেকট্রন থাকে?", options: ["০", "১", "২", "৩"], ans: 2 },
+        { q: "৮. নিচের কোন অণুটির ডাইপোল মোমেন্ট শূন্য (μ = 0)?", options: ["H₂O", "NH₃", "CO₂", "HF"], ans: 2 },
+        { q: "৯. পর্যায় সারণির একই পর্যায়ে বাম থেকে ডানে গেলে আয়নিকরণ শক্তির কী পরিবর্তন হয়?", options: ["বাড়ে", "কমে", "অপরিবর্তিত থাকে", "প্রথমে বাড়ে তারপর কমে"], ans: 0 },
+        { q: "১০. BF₃ অণুতে বোরনের সংকরায়ন কী?", options: ["sp", "sp²", "sp³", "sp³d"], ans: 1 },
+        { q: "১১. ডাইপোল মোমেন্টের একক কী?", options: ["ডিবাই (Debye)", "পয়েজ (Poise)", "জুল (Joule)", "কুলম্ব (Coulomb)"], ans: 0 },
+        { q: "১২. BeCl₂ অণুর বন্ধন কোণ কত?", options: ["180°", "120°", "109.5°", "90°"], ans: 0 },
+        { q: "১৩. বোরন (B) এবং বেরিলিয়াম (Be) এর মধ্যে কার প্রথম আয়নিকরণ শক্তি বেশি?", options: ["বোরন", "বেরিলিয়াম", "উভয়ের সমান", "নির্ণয় করা সম্ভব নয়"], ans: 1 },
+        { q: "১৪. NH₃ অণুর আকৃতি কেমন?", options: ["চতুস্তলকীয়", "সমতলীয় ত্রিভুজাকার", "ভি-আকৃতি", "ত্রিভুজাকার পিরামিডীয়"], ans: 3 },
+        { q: "১৫. NH₄⁺ (অ্যামোনিয়াম আয়ন) এ নাইট্রোজেনের সংকরায়ন কী?", options: ["sp", "sp²", "sp³", "dsp²"], ans: 2 },
+        { q: "১৬. নিচের কোনটি পর্যায়বৃত্ত ধর্ম নয়?", options: ["পারমাণবিক ব্যাসার্ধ", "আয়নিকরণ শক্তি", "তেজস্ক্রিয়তা", "তড়িৎঋণাত্মকতা"], ans: 2 },
+        { q: "১৭. H₂O অণুর বন্ধন কোণ কমে 104.5° হওয়ার মূল কারণ কী?", options: ["bp-bp বিকর্ষণ", "lp-lp বিকর্ষণ", "তড়িৎঋণাত্মকতার পার্থক্য", "হাইড্রোজেন বন্ধন"], ans: 1 },
+        { q: "১৮. AB₃L টাইপ অণুতে 'L' দ্বারা কী বোঝানো হয়?", options: ["Bond pair", "Lone pair", "Ligand", "Lattice"], ans: 1 },
+        { q: "১৯. নিচের কোন অণুটি পোলার (Polar)?", options: ["CCl₄", "CH₄", "H₂O", "CO₂"], ans: 2 },
+        { q: "২০. অবস্থান্তর মৌলসমূহ সাধারণত কী ধরনের যৌগ তৈরি করে?", options: ["বর্ণহীন", "রঙিন", "নিষ্ক্রিয়", "গ্যাসীয়"], ans: 1 }
+    ];
+
+    const quizContainer = document.getElementById("quiz-container");
+    let userAnswers = new Array(20).fill(null);
+
+    function renderQuiz() {
+        quizData.forEach((qItem, qIndex) => {
+            const block = document.createElement("div");
+            block.className = "question-block";
+            
+            const qText = document.createElement("div");
+            qText.className = "question-text";
+            qText.innerText = qItem.q;
+            block.appendChild(qText);
+
+            const optionsDiv = document.createElement("div");
+            optionsDiv.className = "options";
+
+            qItem.options.forEach((optText, optIndex) => {
+                const btn = document.createElement("button");
+                btn.className = "option-btn";
+                btn.innerText = optText;
+                btn.id = `btn-${qIndex}-${optIndex}`;
+                btn.onclick = () => selectOption(qIndex, optIndex);
+                optionsDiv.appendChild(btn);
+            });
+
+            block.appendChild(optionsDiv);
+            quizContainer.appendChild(block);
+        });
+    }
+
+    function selectOption(qIndex, optIndex) {
+        if (document.getElementById("submit-btn").disabled) return; // Locked after submit
+        
+        // Deselect others in the same question
+        for(let i=0; i<4; i++) {
+            let b = document.getElementById(`btn-${qIndex}-${i}`);
+            if(b) b.classList.remove("selected");
+        }
+        
+        // Select clicked
+        document.getElementById(`btn-${qIndex}-${optIndex}`).classList.add("selected");
+        userAnswers[qIndex] = optIndex;
+    }
+
+    function submitQuiz() {
+        let score = 0;
+        document.getElementById("submit-btn").disabled = true;
+        document.getElementById("submit-btn").innerText = "পরীক্ষা শেষ!";
+        document.getElementById("submit-btn").style.backgroundColor = "#555";
+
+        quizData.forEach((qItem, qIndex) => {
+            const correctAns = qItem.ans;
+            const userAns = userAnswers[qIndex];
+
+            // Highlight correct answer in green
+            document.getElementById(`btn-${qIndex}-${correctAns}`).classList.add("correct");
+
+            if (userAns !== null) {
+                if (userAns === correctAns) {
+                    score++;
+                } else {
+                    // Highlight wrong answer in red
+                    document.getElementById(`btn-${qIndex}-${userAns}`).classList.add("wrong");
+                }
+            }
+        });
+
+        document.getElementById("result").innerText = `আপনার স্কোর: ${score} / 20`;
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    renderQuiz();
+</script>
+
+</body>
+</html>
