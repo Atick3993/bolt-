@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOLT's Life Update</title>
     <style>
-     
         body {
             background-color: #f5f6fa; 
             color: #333333; 
@@ -41,7 +40,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
 
         .bgm-btn-black {
             background-color: transparent; 
@@ -130,11 +128,66 @@
             text-decoration: underline;
             color: #4CAF50;
         }
+
+        /* --- NEW MODAL OVERLAY STYLES --- */
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(245, 246, 250, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .overlay-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 6px solid #4CAF50;
+        }
+
+        .enter-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        .enter-btn:hover {
+            background-color: #43a047;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
 
-    <audio id="soundLove" src="audio/shamol-love-story.mp3"></audio> <audio id="soundBangla" src="audio/kya-aap-lete-lete.mp3"></audio>
+    <div id="welcome-overlay">
+        <div class="overlay-card">
+            <h2 style="margin-top:0; color:#111111;">Welcome to BOLT's Life Update</h2>
+            <p style="color:#666666; margin-bottom:20px;">Turn your volume up before entering.</p>
+            <button class="enter-btn" onclick="enterSite()">Enter Site</button>
+        </div>
+    </div>
+
+    <audio id="soundLove" src="audio/shamol-love-story.mp3"></audio> 
+    <audio id="soundBangla" src="audio/kya-aap-lete-lete.mp3"></audio>
     <audio id="soundICT" src="audio/kanchana.mp3"></audio>
     <audio id="soundMath" src="audio/sad-hamster.mp3"></audio>
     <audio id="soundPhysics" src="audio/kis-color-chaddi-pehne-ho.mp3"></audio>
@@ -146,13 +199,16 @@
     <audio id="soundMentalHealth" src="audio/1-akash-chowa.mp3"></audio>
 
     <h1>BOLT's Life Update</h1>
-<div class="life-category">
+    <h2>BOLT IS NO MORE</h2>
+    
+    <div class="life-category">
         <h2 class="category-title"> <b>Mental Health</b></h2>
         <p style="display: flex; justify-content: space-between; align-items: center;"> 
              -mental health update 
             <button class="bgm-btn-black" onclick="playMentalHealth()">BGM</button>
         </p>
     </div>
+    
     <div class="life-category">
         <h2 class="category-title"><b>Love </b><button class="bgm-btn-black" onclick="playLove()">BGM</button></h2>
         <p> -cde na keo mone lage dheo</p>
@@ -187,7 +243,7 @@
                 </li>
                 <li>
                     <span> <b>Biology </b><i> -বই ই খুলে দেখি নাই্‌া
-                     ওহ wait বই তো কিনি ই নাই</i></span>
+                      ওহ wait বই তো কিনি ই নাই</i></span>
                     <button class="bgm-btn-black" onclick="playBiology()">BGM</button>
                 </li>
             </ul>
@@ -196,7 +252,7 @@
 
     <div class="life-category">
         <h2 class="category-title"><b> Shaun Bhai </b> <button class="bgm-btn-black" onclick="playShaun()">BGM</button></h2>
-        <p><b> -ভাই তো পড়ায় সেই্‌ইইইইইইইইইই!!!!! সব ই বুঝি্‌ , কিন্তু মেসে  এসে আর বই বের করে  দেখা হই‌না তাই ইংলিশ ও পারি না</b></p>
+        <p><b> -ভাই তো পড়ায় সেই্‌ইইইইইইইইইই!!!!! সব ই বুঝি_ , কিন্তু মেসে  এসে আর বই বের করে  দেখা হই‌না তাই ইংলিশ ও পারি না</b></p>
     </div>
 
     <div class="life-category">
@@ -212,10 +268,8 @@
         </p>
     </div>
 
-    
-
     <script>
-        
+        // Accordion functionality
         var acc = document.getElementsByClassName("accordion");
         var i;
 
@@ -231,7 +285,7 @@
             });
         }
     
-        
+        // Audio Management functions
         function stopAllAudio() {
             var sounds = document.getElementsByTagName('audio');
             for(var j = 0; j < sounds.length; j++) {
@@ -240,7 +294,19 @@
             }
         }
 
-     
+        // --- SPLASH SCREEN ENTER FUNCTION ---
+        function enterSite() {
+            // 1. Hide the overlay smoothly
+            var overlay = document.getElementById("welcome-overlay");
+            overlay.style.opacity = "0";
+            overlay.style.visibility = "hidden";
+            
+            // 2. Play your selected default launch sound!
+            // Change "playMentalHealth()" below to any other function if you want a different launch song.
+            playMentalHealth(); 
+        }
+
+        // Individual play button triggers
         function playLove() { stopAllAudio(); document.getElementById("soundLove").play(); }
         function playBangla() { stopAllAudio(); document.getElementById("soundBangla").play(); }
         function playICT() { stopAllAudio(); document.getElementById("soundICT").play(); }
