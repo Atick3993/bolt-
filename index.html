@@ -42,6 +42,12 @@
             align-items: center;
         }
 
+        .flex-between {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+
         .bgm-btn-black {
             background-color: transparent; 
             border: 1px solid #121212; 
@@ -119,6 +125,26 @@
             border-bottom: none;
         }
 
+        /* Social Links Specifics */
+        .social-container {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .custom-link {
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .fb-icon { color: #1877F2; font-size: 22px; }
+        .ig-icon { color: #E1306C; font-size: 22px; }
+
+        /* Overlay Specifics */
         #welcome-overlay {
             position: fixed;
             top: 0;
@@ -142,6 +168,16 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             text-align: center;
             border-top: 6px solid #4CAF50;
+        }
+
+        .overlay-title {
+            margin-top: 0; 
+            color: #111111;
+        }
+
+        .overlay-subtitle {
+            color: #666666; 
+            margin-bottom: 20px;
         }
 
         .enter-btn {
@@ -169,8 +205,8 @@
 
     <div id="welcome-overlay">
         <div class="overlay-card">
-            <h2 style="margin-top:0; color:#111111;">Welcome to BOLT's Life Update</h2>
-            <p style="color:#666666; margin-bottom:20px;">Turn your volume up before entering.</p>
+            <h2 class="overlay-title">Welcome to BOLT's Life Update</h2>
+            <p class="overlay-subtitle">Turn your volume up before entering.</p>
             <button class="enter-btn" onclick="enterSite()">Enter Site</button>
         </div>
     </div>
@@ -183,7 +219,6 @@
     <audio id="soundPhysics" src="audio/kis-color-chaddi-pehne-ho.mp3"></audio>
     <audio id="soundChemistry" src="audio/movie_1.mp3"></audio>
     <audio id="soundBiology" src="audio/tomar-kache-bichar-dilam_lhW5Xfl.mp3"></audio>
-    <audio id="soundShaun" src="audio/please-khoma-kore-dau.mp3"></audio>
     <audio id="soundFriends" src="audio/nani_Pmxf5n3.mp3"></audio>
     <audio id="soundSocial" src="audio/tole-tole-kawaii.mp3"></audio>
     <audio id="soundMentalHealth" src="audio/1-akash-chowa.mp3"></audio>
@@ -192,15 +227,15 @@
     <h2>BOLT IS NO MORE</h2>
     
     <div class="life-category">
-        <h2 class="category-title"> <b>Mental Health</b></h2>
-        <p style="display: flex; justify-content: space-between; align-items: center;"> 
-              -mental health update 
+        <h2 class="category-title"><b>Mental Health</b></h2>
+        <p class="flex-between"> 
+            -mental health update 
             <button class="bgm-btn-black" onclick="playMentalHealth()">BGM</button>
         </p>
     </div>
     
     <div class="life-category">
-        <h2 class="category-title"><b>Love </b><button class="bgm-btn-black" onclick="playLove()">BGM</button></h2>
+        <h2 class="category-title"><b>Love</b> <button class="bgm-btn-black" onclick="playLove()">BGM</button></h2>
         <p> -cde na keo mone lage dheo</p>
     </div>
 
@@ -220,7 +255,7 @@
                     <button class="bgm-btn-black" onclick="playICT()">BGM</button>
                 </li>
                 <li>
-                    <span><b> Math </b> -monthly  তে ৮ পাইসি,তুই বুঝি নে এবার</span>
+                    <span><b> Math </b> -monthly তে ৮ পাইসি,তুই বুঝি নে এবার</span>
                     <button class="bgm-btn-black" onclick="playMath()">BGM</button>
                 </li>
                 <li>
@@ -235,34 +270,31 @@
                     <span> <b>Biology </b><i> -বই ই খুলে দেখি নাই্‌া ওহ wait বই তো কিনি ই নাই</i></span>
                     <button class="bgm-btn-black" onclick="playBiology()">BGM</button>
                 </li>
-
-
                 <li>
-
-
-                    <span> <b>secrate </b> - you can safely ignr this section 00110101 00111001 00110101 00110101 00100000 00110100 00111001 00111001 00110100 00001010 00110001 00110011 00110100 00110000 00100000 00110000 00111001 00110100 00110010 00001010 00110101 00111001 00110111 00111001 00100000 00110111 00110001 00110110 00110011 00001010 00110001 00110100 00110000 00110000 00100000 00110000 00110000 00110100 00110111 00001010 00111001 00110111 00110010 00110000 00100000 00110011 00110101 00110001 00110111 00001010 00110010 00110000 00111001 00110001 00100000 00111000 00111000 00111001 00110100 00001010 00110100 00110011 00111001 00110101 00100000 00110010 00110111 00110110 00110011 00001010 00110011 00110100 00110011 00110011 00100000 00110111 00111000 00110101 00110111 00001010 00110111 00110100 00110001 00110011 00100000 00110110 00110000 00110011 00110100 00001010 00110001 00110101 00110000 00110110 00100000 00110100 00110111 00110111 00110101   </span>
+                    <span> <b>Secret </b> - you can safely ignore this section: 00110101 00111001 00110101 00110101 00100000 00110100 00111001 00111001 00110100 00001010 00110001 00110011 00110100 00110000 00100000 00110000 00111001 00110100 00110010 00001010 00110101 00111001 00110111 00111001 00100000 00110111 00110001 00110110 00110011 00001010 00110001 00110100 00110000 00110000 00100000 00110000 00110000 00110100 00110111 00001010 00111001 00110111 00110010 00110000 00100000 00110011 00110101 00110001 00110111 00001010 00110010 00110000 00111001 00110001 00100000 00111000 00111000 00111001 00110100 00001010 00110100 00110011 00111001 00110101 00100000 00110010 00110111 00110110 00110011 00001010 00110011 00110100 00110011 00110011 00100000 00110111 00111000 00110101 00110111 00001010 00110111 00110100 00110001 00110011 00100000 00110110 00110000 00110011 00110100 00001010 00110001 00110101 00110000 00110110 00100000 00110100 00110111 00110111 00110101   </span>
                 </li>
             </ul>
-
-
-            
         </div>
     </div>
 
    <div class="life-category">
-        <h2 class="category-title"><b>Social</b></h2>
-        <p style="display: flex; justify-content: space-between; align-items: center;"> 
+        <h2 class="category-title"><b>Social & Friends</b></h2>
+        <p class="flex-between"> 
+            -Friends update
+            <button class="bgm-btn-black" onclick="playFriends()">BGM</button>
+        </p>
+        <p class="flex-between"> 
             -BGM shune bujhe ne,,,dhorijo nai 
             <button class="bgm-btn-black" onclick="playSocial()">BGM</button>
         </p>
 
-        <div style="margin-top: 15px;">
-            <a href="https://www.facebook.com" target="_blank" class="custom-link" style="margin-right: 15px; display: inline-flex; align-items: center; gap: 8px;">
-                <i class="fa-brands fa-facebook" style="color: #1877F2; font-size: 22px;"></i> Facebook
+        <div class="social-container">
+            <a href="https://www.facebook.com" target="_blank" class="custom-link">
+                <i class="fa-brands fa-facebook fb-icon"></i> Facebook
             </a>
             
-            <a href="https://www.instagram.com/" target="_blank" class="custom-link" style="display: inline-flex; align-items: center; gap: 8px;">
-                <i class="fa-brands fa-instagram" style="color: #E1306C; font-size: 22px;"></i> Instagram
+            <a href="https://www.instagram.com/" target="_blank" class="custom-link">
+                <i class="fa-brands fa-instagram ig-icon"></i> Instagram
             </a>
         </div>
     </div>
@@ -304,7 +336,6 @@
         function playPhysics() { stopAllAudio(); document.getElementById("soundPhysics").play(); }
         function playChemistry() { stopAllAudio(); document.getElementById("soundChemistry").play(); }
         function playBiology() { stopAllAudio(); document.getElementById("soundBiology").play(); }
-        function playShaun() { stopAllAudio(); document.getElementById("soundShaun").play(); }
         function playFriends() { stopAllAudio(); document.getElementById("soundFriends").play(); }
         function playSocial() { stopAllAudio(); document.getElementById("soundSocial").play(); }
         function playMentalHealth() { stopAllAudio(); document.getElementById("soundMentalHealth").play(); }
